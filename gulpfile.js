@@ -35,7 +35,22 @@ function runFlask(done) {
 
 function runBSync(done) {
   browserSync.init({
-    //notify: true,
+    notify: {
+      styles: {
+        top: 'auto',
+        bottom: '0',
+        margin: '0px',
+        padding: '5px',
+        position: 'fixed',
+        fontSize: '12px',
+        zIndex: '9999',
+        borderRadius: '5px 0px 0px',
+        color: 'white',
+        textAlign: 'center',
+        display: 'block',
+        backgroundColor: 'rgba(27, 32, 50, 0.7)'
+      }
+    },
     online: false,
     //		ws: true,
     //		injectChanges: true,
@@ -53,7 +68,7 @@ function watchFiles(params) {
   gulp.watch("**/templates/**/*.html").on("change", templates);
   gulp
     .watch(["**/**/*.py"])
-    .on("change", browserSync.reload({ stream: true }));
+    .on("change", browserSync.reload);
   // gulp
   //   .watch(["**/**/*.sqlite"])
   //   .on("change", browserSync.reload);
@@ -69,8 +84,7 @@ function templates(e) {
   return gulp
     .src(e)
     .pipe(plumbError())
-    .pipe(browserSync.reload({ stream: true }));
-    //.pipe(browserSync.stream());
+    .pipe(browserSync.stream()); //.pipe(browserSync.reload({ stream: true }));
 }
 
 function styles(e) {
@@ -78,8 +92,7 @@ function styles(e) {
   return gulp
     .src(e)
     .pipe(plumbError())
-    .pipe(browserSync.reload({ stream: true }));    
-    //.pipe(browserSync.stream());
+    .pipe(browserSync.stream());
 }
 
 function scripts(e) {
@@ -87,8 +100,7 @@ function scripts(e) {
   return gulp
     .src(e)
     .pipe(plumbError())
-    .pipe(browserSync.reload({ stream: true }));    
-    //.pipe(browserSync.stream());
+    .pipe(browserSync.stream());
 }
 
 function clearCache() {
